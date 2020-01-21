@@ -1,0 +1,16 @@
+sslError verify pip install:
+
+learning_rate = [0.1, 0.001, 0.0001]
+
+
+
+## sExperiment D + 1 Random Forest
+
+Done with training.
+R2 score train score:  0.25 score test set:  0.25
+Mean-squared error train set:  0.0005 test set:  0.0005
+Explained variance train set:  0.2546 test set:  0.2546
+Root means squared error train set  0.0213 test set:  0.0213
+..................................................
+Best parameters:
+{'bootstrap': False, 'criterion': 'mae', 'max_depth': 9, 'max_features': 6, 'min_samples_split': 6, 'n_estimators': 68}
