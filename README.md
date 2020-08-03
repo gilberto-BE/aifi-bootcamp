@@ -5,7 +5,7 @@ This is the official repository for the aifi-bootcamp. It contains lectures on m
 ## Resources
 Machine Learning frameworks:
 * Numpy: https://numpy.org/doc/stable/
-
+* Pandas: https://pandas.pydata.org/docs/user_guide/index.html
 * Scikit-Learn: https://scikit-learn.org/stable/
 
 
