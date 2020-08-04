@@ -16,8 +16,11 @@ Deep Learning frameworks:
 
 ## Installing packages
 The easiest way to install python packages is to use either pip or conda.
-Conda includes many data science libraries such as pandas, numpy, scipy.
+Conda includes many data science libraries such as pandas, numpy, scipy or scikit-learn.
  Also it includes some deep learning libraries such as pytorch.
 
 Installing tensorflow:
 https://anaconda.org/conda-forge/tensorflow
+
+If you want to create an anaconda environment then you would need to install the libraries yourself.
+https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html
