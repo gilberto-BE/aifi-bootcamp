@@ -12,3 +12,12 @@ Machine Learning frameworks:
 Deep Learning frameworks:
 * keras: https://keras.io/
 * keras tuner: https://keras-team.github.io/keras-tuner/
+
+
+## Installing packages
+The easiest way to install python packages is to use either pip or conda.
+Conda includes many data science libraries such as pandas, numpy, scipy.
+ Also it includes some deep learning libraries such as pytorch.
+
+Installing tensorflow:
+https://anaconda.org/conda-forge/tensorflow
