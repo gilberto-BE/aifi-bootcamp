@@ -161,11 +161,6 @@ def to_tensor(data,
 
     Return:
     """
-    # time_length = len(data) # repeat this for train-val-test
-    # xtrain_list, ytrain_list = [], []
-    # xval_list, yval_list = [], []
-    # xtest_list, ytest_list  = [], []
-    # x_idx = []
 
     if add_cyclic_date:
         x = np.concatenate((data, date_features), axis=1)
