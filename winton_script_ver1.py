@@ -31,12 +31,12 @@ PROJECT_ROOT_DIR = os.path.join(os.path.dirname('__file__'), '.')
 PROJECT_DATA_DIR = os.path.join(PROJECT_ROOT_DIR, 'kaggle')
 
 
-# if pushing code to git paste this to 
+# if pushing code to git paste this to
 
 
 def load_data():
     """ This function returns xtrain and test sets"""
-    train = pd.read_csv(os.path.join(PROJECT_DATA_DIR, 
+    train = pd.read_csv(os.path.join(PROJECT_DATA_DIR,
                                      'train_winton.csv')).drop('Id', axis=1)
     test = pd.read_csv(os.path.join(PROJECT_DATA_DIR,
                                     'test_2_winton.csv')).drop('Id', axis=1)
@@ -75,22 +75,22 @@ def delete_features(data):
 
 def pre_process(x, y, scaler=QuantileTransformer):
     xtrain, xtest, ytrain, ytest = train_test_split(x, y, shuffle=True)
-    
+
     imp = SimpleImputer(strategy='mean')
     xtrain = imp.fit_transform(xtrain)
     xtest = imp.transform(xtest)
-    
+
     # set some condition?
     scaler = scaler(output_distribution='normal')
     xtrain = scaler.fit_transform(xtrain)
     xtest = scaler.transform(xtest)
-    
+
     # dim reduction
     pca = PCA()
     pca.fit(xtrain)
     cumsum = np.cumsum(pca.explained_variance_ratio_)
     d = np.argmax(cumsum >= 0.95) + 1
-    
+
     pca = PCA(n_components=d)
     xtrain = pca.fit_transform(xtrain)
     xtest = pca.transform(xtest)
@@ -100,15 +100,15 @@ def pre_process(x, y, scaler=QuantileTransformer):
 
 def hyper_parameter_search(xtrain,
                            ytrain,
-                           xtest, 
-                           ytest, 
+                           xtest,
+                           ytest,
                            model,
-                           param_dist=None, 
-                           train_samples=5000, 
+                           param_dist=None,
+                           train_samples=5000,
                            test_samples=1000,
                            n_iter_search=10,
                            cv=5):
-    
+
 #    transformer = QuantileTransformer(output_distribution='normal')
     # we might need to do grid or random search
     regressor = model()
@@ -116,31 +116,31 @@ def hyper_parameter_search(xtrain,
     print('')
 
     n_iter_search = n_iter_search
-    reg = RandomizedSearchCV(regressor, 
-                             param_distributions=param_dist, 
-                             n_iter=n_iter_search, 
-                             cv=cv, 
-                             iid=False, 
-                             verbose=10, 
+    reg = RandomizedSearchCV(regressor,
+                             param_distributions=param_dist,
+                             n_iter=n_iter_search,
+                             cv=cv,
+                             iid=False,
+                             verbose=10,
                              n_jobs=-1)
 
     # use the train examples only
     # for hyper parameter optimization
     n_train_samples = len(xtrain)
     n_test_samples = len(xtest)
-    
+
     xtr, ytr, xts, yts = None, None, None, None
-    
+
     if (train_samples < n_train_samples) and (test_samples < n_test_samples):
         xtr = xtrain[:train_samples, :].copy()
         ytr = ytrain[:train_samples].copy()
 
         xts = xtest[:test_samples, :].copy()
         yts = ytest[:test_samples].copy()
-    else:        
+    else:
         xtr = xtrain.copy()
         ytr = ytrain.copy()
-        
+
         xts = xtest.copy()
         yts = ytest.copy()
 
@@ -151,10 +151,10 @@ def hyper_parameter_search(xtrain,
 
     sctrain = r2_score(ytr, pred_train)
     sctest = r2_score(yts, pred_test)
-    
+
     mse_train = mean_squared_error(ytr, pred_train)
     mse_test = mean_squared_error(yts, pred_test)
-    
+
     ex_variance_train = explained_variance_score(ytr, pred_train)
     ex_variance_test = explained_variance_score(yts, pred_test)
 
@@ -172,10 +172,10 @@ def hyper_parameter_search(xtrain,
     print('.' * 50)
     print('Best parameters:')
     print(reg.best_params_)
-    
+
     return reg, reg.best_params_
 
-def plot_feature_importance():
+def plot_feature_importance(clf):
     # Plot feature importance
     feature_importance = clf.feature_importances_
     # make importances relative to max importance
@@ -209,19 +209,19 @@ if __name__ == '__main__':
                   'loss': ['huber', 'lad', 'lad'],
                   'learning_rate': [0.1, 0.2, 0.3, 0.0001],
                   'n_iter_no_change': sp_randint(1, 50)}
-    
+
     train_samples = 15000
     test_samples = 5000
-    
-    hyper_parameter_search(xtrain1, 
-                           ytrain1, 
-                           xtest1, 
-                           ytest1, 
+
+    hyper_parameter_search(xtrain1,
+                           ytrain1,
+                           xtest1,
+                           ytest1,
                            model=GradientBoostingRegressor,
                            param_dist=param_dist,
                            n_iter_search=5,
                            train_samples=train_samples,
                            test_samples=test_samples,
                            cv=5)
-    
+
     # save preprocessed data to disk
