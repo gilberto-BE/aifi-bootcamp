@@ -20,7 +20,7 @@ Conda includes many data science libraries such as pandas, numpy, scipy or sciki
  Also it includes some deep learning libraries such as pytorch.
 
 Installing tensorflow:
-https://anaconda.org/conda-forge/tensorflow
+https://docs.anaconda.com/anaconda/user-guide/tasks/tensorflow/
 
 If you want to create an anaconda environment then you would need to install the libraries yourself.
 https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html
