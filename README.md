@@ -16,7 +16,9 @@ Machine Learning frameworks:
 
 Deep Learning frameworks:
 * keras: https://keras.io/
-* keras tuner: https://keras-team.github.io/keras-tuner/
+* keras tuner (Hyper-parameter search): https://keras-team.github.io/keras-tuner/
+* pytorch: https://pytorch.org/
+* Ray Tune (Hyper-parameter search): https://docs.ray.io/en/master/tune/index.html
 
 
 ## Installing packages
