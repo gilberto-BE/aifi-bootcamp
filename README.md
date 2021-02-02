@@ -14,14 +14,14 @@ Machine Learning frameworks:
 * Scikit-Learn: https://scikit-learn.org/stable/
 
 
-Deep Learning frameworks:
+### Deep Learning frameworks:
 * keras: https://keras.io/
 * keras tuner (Hyper-parameter search): https://keras-team.github.io/keras-tuner/
 * pytorch: https://pytorch.org/
 * Ray Tune (Hyper-parameter search): https://docs.ray.io/en/master/tune/index.html
 
 
-## Installing packages
+### Installing packages
 The easiest way to install python packages is to use either pip or conda.
 Conda includes many data science libraries such as pandas, numpy, scipy or scikit-learn.
  Also it includes some deep learning libraries such as pytorch.
