@@ -4,7 +4,8 @@ This is the official repository for the aifi-bootcamp. It contains lectures on m
 
 # Papers
 Deep Learning for Equity Time Series Prediction
-https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3735940
+
+* https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3735940
 
 ## Resources
 Machine Learning frameworks:
