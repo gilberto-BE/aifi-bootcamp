@@ -110,6 +110,7 @@ def train_mnist(config):
         if i % 5 == 0:
             torch.save(model.state_dict(), "./model.pth")
 
+
 if __name__ == "__main__":
     """Perform async Hyperband optimization ASHA"""
 
