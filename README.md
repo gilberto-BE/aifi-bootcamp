@@ -7,6 +7,9 @@ Deep Learning for Equity Time Series Prediction
 
 * https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3735940
 
+A Meta-Learning approach to Model Uncertainty in Financial Time Series
+* https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3814938
+
 ## Resources
 Machine Learning frameworks:
 * Numpy: https://numpy.org/doc/stable/
