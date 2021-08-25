@@ -14,7 +14,8 @@ A Meta-Learning approach to Model Uncertainty in Financial Time Series
 Machine Learning frameworks:
 * Numpy: https://numpy.org/doc/stable/
 * Pandas: https://pandas.pydata.org/docs/user_guide/index.html
-* Scikit-Learn: https://scikit-learn.org/stable/
+* Scikit-Learn (XGBoost is part of their algorithms): https://scikit-learn.org/stable/
+* XGBoost: https://xgboost.readthedocs.io/en/latest/ 
 
 
 ### Deep Learning frameworks:
