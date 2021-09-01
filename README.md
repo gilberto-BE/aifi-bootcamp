@@ -40,6 +40,10 @@ https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-convolutional-neural-n
 Here is a link to Stanford University's cheatsheet on RNN/LSTM:
 https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-recurrent-neural-networks
 
+### Annotated Transformer
+Explanation of transformers is all you need paper with pytorch code:
+https://nlp.seas.harvard.edu/2018/04/03/attention.html
+
 ### Installing packages
 The easiest way to install python packages is to use either pip or conda.
 Conda includes many data science libraries such as pandas, numpy, scipy or scikit-learn.
