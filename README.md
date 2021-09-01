@@ -27,6 +27,13 @@ Machine Learning frameworks:
 * Jax: https://github.com/google/jax
 
 
+### Toy Datasets for Deep Learning
+* MNIST, handwritten digits (0-9): http://yann.lecun.com/exdb/mnist/
+* CIFAR: https://www.cs.toronto.edu/~kriz/cifar.html
+* ![image](https://user-images.githubusercontent.com/31182891/131699259-22f3a398-eb13-4959-a658-bc00c70e917f.png)
+
+
+
 ### Installing packages
 The easiest way to install python packages is to use either pip or conda.
 Conda includes many data science libraries such as pandas, numpy, scipy or scikit-learn.
