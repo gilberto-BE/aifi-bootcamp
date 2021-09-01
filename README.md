@@ -36,6 +36,10 @@ Machine Learning frameworks:
 Here is a link to Standford University's cheatsheet on convolutions:
 https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-convolutional-neural-networks
 
+### Cheatsheet on LSTM/RNN:
+Here is a link to Stanford University's cheatsheet on RNN/LSTM:
+https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-recurrent-neural-networks
+
 ### Installing packages
 The easiest way to install python packages is to use either pip or conda.
 Conda includes many data science libraries such as pandas, numpy, scipy or scikit-learn.
