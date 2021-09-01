@@ -32,7 +32,9 @@ Machine Learning frameworks:
 * CIFAR: https://www.cs.toronto.edu/~kriz/cifar.html
 * ![image](https://user-images.githubusercontent.com/31182891/131699259-22f3a398-eb13-4959-a658-bc00c70e917f.png)
 
-
+### Cheatsheet on convolutions:
+Here is a link to Standford University's cheatsheet on convolutions:
+https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-convolutional-neural-networks
 
 ### Installing packages
 The easiest way to install python packages is to use either pip or conda.
