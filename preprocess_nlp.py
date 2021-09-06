@@ -34,13 +34,14 @@ def get_categories_lines():
     return category_lines, all_categories
 
 
-def letterToIndex(letter):
+def letterToIndex(letter, all_letters):
     return all_letters.find(letter)
 
 
-def letterToTensor(letter):
+def letterToTensor(letter, n_letters, all_letters):
+    """Fix issues with args"""
     tensor = torch.zeros(1, n_letters)
-    tensor[0][letterToIndex(letter)] = 1
+    tensor[0][letterToIndex(letter, all_letters)] = 1
     return tensor
 
 
@@ -64,3 +65,8 @@ if __name__ == "__main__":
     category_lines, all_categories = get_categories_lines()
     n_categories = len(all_categories)
     n_categories
+
+    print(category_lines['Italian'][:5])
+    print(letterToTensor('J', n_letters))
+    print()
+    print(lineToTensor('Jones').size())
