@@ -22,7 +22,7 @@ def readLines(filename, all_letters):
     lines = open(filename, encoding='utf-8').read().strip().split('\n')
     return [unicodeToAscii(line, all_letters) for line in lines]
 
-def get_categories_lines():
+def get_categories_lines(all_letters):
     category_lines = {}
     all_categories = []
 
@@ -48,7 +48,7 @@ def letterToTensor(letter, n_letters, all_letters):
 def lineToTensor(line):
     tensor = torch.zeros(len(line), 1, n_letters)
     for li, letter in enumerate(line):
-        tensor[li][0][letterToIndex(letter)] = 1
+        tensor[li][0][letterToIndex(letter, all_letters)] = 1
     return tensor
 
 if __name__ == "__main__":
@@ -67,6 +67,6 @@ if __name__ == "__main__":
     n_categories
 
     print(category_lines['Italian'][:5])
-    print(letterToTensor('J', n_letters))
+    print(letterToTensor('J', n_letters, all_letters))
     print()
     print(lineToTensor('Jones').size())

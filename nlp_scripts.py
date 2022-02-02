@@ -15,16 +15,18 @@ import torch
 def clasify_names():
     all_letters = string.ascii_letters + ".,;''"
     n_letters = len(all_letters)
-    input = letterToTensor('A', n_letters)
+    input = letterToTensor('A', n_letters, all_letters)
 
 if __name__ == "__main__":
     all_letters = string.ascii_letters + ".,;''"
     n_letters = len(all_letters)
-    input = letterToTensor('A', n_letters)
+    input = letterToTensor('A', n_letters, all_letters)
     n_hidden = 256
-    category_lines, all_categories = get_categories_lines()
+    category_lines, all_categories = get_categories_lines(all_letters)
     n_categories = len(all_categories)
     rnn = RNN(n_letters, n_hidden, n_categories)
     hidden = torch.zeros(1, n_hidden)
     output, next_hidden = rnn(input, hidden)
+    print()
+    print('Output from RNN:')
     print(output)
