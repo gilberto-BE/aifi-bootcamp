@@ -1,8 +1,14 @@
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/gilberto-BE/aifi-bootcamp.git/binder)
+
+
+
+
 # aifi-bootcamp
 AIFI bootcamp
 This is the official repository for the aifi-bootcamp. It contains lectures on machine learning. This repository is under continous updating, so keep comming back to it for updates.
 
-# Papers
+# Papers on LSTM for Time Series Predictions
 Deep Learning for Equity Time Series Prediction
 
 * https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3735940
