@@ -15,6 +15,27 @@ import sklearn.model_selection as sm
 import matplotlib.pyplot as plt
 
 
+def flatten(data, num_cols=1):
+    return np.array(data).reshape(-1, num_cols)
+
+
+def split_data(data, train_size, valid_size):
+    """
+    Implement data based splitting. 
+    Do normalization.
+    
+    """
+    train_size = int(len(data) * train_size)
+    valid_size = int(train_size + len(data) * valid_size)
+    try:
+        train_set = data.iloc[: train_size]
+        valid_set = data.iloc[train_size: valid_size]
+        test_set = data.iloc[valid_size: ]
+        return train_set, valid_set, test_set
+    except Exception as e:
+        print(f'Exception from _split_data: {e}')
+
+
 def rename_set_index(ts):
     ts['Unnamed: 0'] = pd.to_datetime(ts['Unnamed: 0'])
     ts.set_index('Unnamed: 0', inplace=True)
@@ -48,34 +69,19 @@ def tokenize_function(data, col="text"):
 
 def create_rolling_ts(
     input_data, 
-    # col='EBAY', 
     lookback=5, 
     return_target=True,
     apply_datefeatures=True,
-    merge_with=None,
-    how='inner',
-    get_num_cat=False
     ):
     """
     Make flat data by using pd.concat instead, pd.concat([df1, df2]).
     Slow function.
     Save data as preprocessed?
-
-    Return: either only numerical values or also
-    numerical and categorical values.
     """
     x = []
     y = []
     rows = len(input_data)
     features = input_data.copy()
-    if not merge_with.empty:
-        features = features.merge(
-            merge_with, 
-            left_index=True, 
-            right_index=True, 
-            how=how
-            ).interpolate()
-
     target = input_data.copy()
     for i in range(rows - lookback):
         """Create embeddings for the date-features"""
@@ -83,8 +89,8 @@ def create_rolling_ts(
             rolling_features = date_features(features.iloc[i: i + lookback])
         else:
             rolling_features = features.iloc[i: i + lookback]
+
         rolling_target = target.iloc[i + lookback: i + lookback + 1]
-    
         x.append(rolling_features)
         y.append(rolling_target)
     if return_target:
@@ -92,15 +98,7 @@ def create_rolling_ts(
     return x
 
 
-def date_features(df, idx='index'):
-    try:
-        pass
-        # df[idx] = pd.to_datetime(df[idx])
-        # df.set_index(idx, inplace=True)
-        # df.index.rename('date', inplace=True)
-        # df.sort_index(inplace=True)
-    except Exception as e:
-        print(f'Index type error: {e}')
+def date_features(df):
     if isinstance(df, pd.core.series.Series):
         df = pd.DataFrame(df, index=df.index)
 
@@ -320,111 +318,3 @@ class TimeSeriesDataset(Dataset):
             }
 
 
-class DataModule(pl.LightningDataModule):
-    """
-    Divide data in train, valid before passing 
-    train_set = data[: train_idx]
-    valid_set = data[train_idx: valid_idx]
-    """
-    def __init__(
-        self, 
-        data,
-        stock_name='EBAY',
-        train_size=0.75,
-        valid_size=0.125,
-        batch_size=64,
-        normalize_data=True
-        ):
-        super(DataModule, self).__init__()
-
-        self.data = data
-        self.stock_name = stock_name
-        self.train_size = train_size
-        self.valid_size = valid_size
-        self.batch_size = batch_size
-        self.normalize_data = normalize_data
-        
-    def setup(self, stage=None):
-        """Create train, valid and test sets here. Use SplitTS classe"""
-
-        """
-        # TODO:
-        1) TimeSeriesProc does not implement transforms, fix it !!!!
-        2) Problems are that tensors are 3-dim, but scaler expects 2-dim !!!
-        """
-        
-        self.total_data = TimeSeriesProc(
-            self.data, 
-            self.stock_name,
-            self.train_size, 
-            self.valid_size,
-            self.normalize_data
-            ).get_data()
-
-        self.train_set = self.total_data['train_set']
-        self.valid_set = self.total_data['valid_set']
-        self.test_set = self.total_data['test_set']
-
-        if stage == 'fit' or stage is None:
-
-            self.train_loader = TimeSeriesDataset(
-                features=self.train_set['xtrain'], 
-                target=self.train_set['ytrain']
-                )
-
-            self.valid_loader = TimeSeriesDataset(
-                features=self.valid_set['xvalid'], 
-                target=self.valid_set['yvalid']
-                )
-        else:
-            self.test_loader = TimeSeriesDataset(
-                features=self.test_set['xtest'],
-                target=self.test_set['ytest']
-                )
-
-    def train_dataloader(self):
-        return DataLoader(
-            self.train_loader,
-            batch_size=self.batch_size,
-            shuffle=False
-            )
-
-    def val_dataloader(self):
-        return DataLoader(
-            self.valid_loader, 
-            batch_size=self.batch_size, 
-            shuffle=False
-            )
-
-    def test_dataloader(self):
-        return DataLoader(
-            self.test_loader, 
-            batch_size=self.batch_size, 
-            shuffle=False
-            )
-
-
-def finbert_features(df):
-    """
-    Input df read from finbert.
-    TODO:
-    *) The score column is a list with dicts.
-    *) The steps below split the dict in two columns.
-    *) Save preprocessed data.
-    """
-    df['Unnamed: 0'] = pd.to_datetime(df['Unnamed: 0'])
-    df.rename(columns={'Unnamed: 0': 'tstamp'}, inplace=True)
-    df.set_index('tstamp', inplace=True)
-    df.index = pd.to_datetime(df.index, unit='s')
-    df_scores = df['score'].apply(lambda x: x.strip('[').strip(']'))
-    df.drop('score', axis=1, inplace=True)
-    df = df.merge(
-        df_scores.map(eval).apply(pd.Series), 
-        left_index=True, 
-        right_index=True
-        )
-    df['label'].loc[df['label'] == 'neutral'] = 0
-    df['label'].loc[df['label'] == 'positive'] = 1
-    df['label'].loc[df['label'] == 'negative'] = -1
-    df['label'] = df['label'].astype(float)
-    return df

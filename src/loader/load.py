@@ -60,52 +60,6 @@ class YFinanceDataset:
         pass
 
 
-def create_rolling_ts(
-    input_data, 
-    lookback=5, 
-    return_target=True,
-    apply_datefeatures=True,
-    ):
-    """
-    Make flat data by using pd.concat instead, pd.concat([df1, df2]).
-    Slow function.
-    Save data as preprocessed?
-    """
-    x = []
-    y = []
-    rows = len(input_data)
-    features = input_data.copy()
-    """
-    Merge and split first then send data to 
-    preprocess pipeline.
-    """
-    target = input_data.copy()
-    for i in range(rows - lookback):
-        """Create embeddings for the date-features"""
-        if apply_datefeatures:
-            rolling_features = date_features(features.iloc[i: i + lookback])
-        else:
-            rolling_features = features.iloc[i: i + lookback]
-
-        rolling_target = target.iloc[i + lookback: i + lookback + 1]
-        x.append(rolling_features)
-        y.append(rolling_target)
-    if return_target:
-        return x, y
-    return x
-
-
-def date_features(df, idx='index'):
-    if isinstance(df, pd.core.series.Series):
-        df = pd.DataFrame(df, index=df.index)
-
-    df.loc[:, 'day_of_year'] = df.index.dayofyear
-    df.loc[:, 'month'] = df.index.month
-    df.loc[:, 'day_of_week'] = df.index.day
-    df.loc[:, 'hour'] = df.index.hour
-    return df
-
-
 def from_list_df(price_list):
     """
     Create dataframe from list from 
