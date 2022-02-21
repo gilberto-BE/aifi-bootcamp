@@ -15,6 +15,26 @@ import sklearn.model_selection as sm
 import matplotlib.pyplot as plt
 
 
+# transform a time series dataset into a supervised learning dataset
+def series_to_supervised(data, n_in=1, n_out=1, dropnan=True):
+	n_vars = 1 if type(data) is list else data.shape[1]
+	df = pd.DataFrame(data)
+	cols = list()
+	# input sequence (t-n, ... t-1)
+	for i in range(n_in, 0, -1):
+		cols.append(df.shift(i))
+	# forecast sequence (t, t+1, ... t+n)
+	for i in range(0, n_out):
+		cols.append(df.shift(-i))
+	# put it all together
+	agg = pd.concat(cols, axis=1)
+	# drop rows with NaN values
+	if dropnan:
+		agg.dropna(inplace=True)
+	return agg.values
+ 
+
+
 def flatten(data, num_cols=1):
     return np.array(data).reshape(-1, num_cols)
 
@@ -72,6 +92,7 @@ def create_rolling_ts(
     lookback=5, 
     return_target=True,
     apply_datefeatures=True,
+    return_np_array=False
     ):
     """
     Make flat data by using pd.concat instead, pd.concat([df1, df2]).
@@ -93,6 +114,10 @@ def create_rolling_ts(
         rolling_target = target.iloc[i + lookback: i + lookback + 1]
         x.append(rolling_features)
         y.append(rolling_target)
+    if return_np_array:
+        x = np.array(x)
+        y = np.array(y)
+
     if return_target:
         return x, y
     return x
