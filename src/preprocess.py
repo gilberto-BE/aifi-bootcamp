@@ -67,3 +67,12 @@ def split_data(data, train_size, valid_size):
 
 def square(i):
     return i ** 2
+
+
+def flatten(data):
+    """Make data n X 1 dimensional"""
+    return data.reshape(data.shape[0], -1)
+
+
+def is_pandas(df):
+    return isinstance(df, (pd.core.frame.DataFrame, pd.core.series.Series))
