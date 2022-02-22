@@ -1,19 +1,19 @@
 # AIFI-BOOTCAMP
 Repository with code and notebooks for the AIFI-BOOTCAMP.
 
-# Our Papers and litterature
-A Meta-Learning approach to Model Uncertainty in Financial Time Series (March 29, 2021)
+## Our Papers and litterature
+A Meta-Learning approach to Model Uncertainty in Financial Time Series (March 29, 2021):
 
 * https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3814938
 
-Deep Learning for Equity Time Series Prediction (Nov 24 2020)
+Deep Learning for Equity Time Series Prediction (Nov 24 2020):
 
 * https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3735940
 
-Big Data and Machine Learning in Quantitative Investment, Chapter on LSTM.
-* https://www.wiley.com/en-ae/Big+Data+and+Machine+Learning+in+Quantitative+Investment-p-9781119522195  (March 2019)
+Big Data and Machine Learning in Quantitative Investment, Chapter on LSTM (March 2019):
+* https://www.wiley.com/en-ae/Big+Data+and+Machine+Learning+in+Quantitative+Investment-p-9781119522195  
 
-### Data Science Stack
+## Data Science Stack
 * Numpy
 * Pandas
 * Jupyter Notebooks
@@ -22,7 +22,7 @@ Big Data and Machine Learning in Quantitative Investment, Chapter on LSTM.
 * Pytorch: https://pytorch.org/
 
 
-### Anaconda environments
+## Anaconda environments
 Create separate environments in order to isolate different versions of your software.
 https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html
 
