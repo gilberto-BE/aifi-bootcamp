@@ -1,13 +1,23 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Aug 11 20:50:59 2020
+
+@author: gilbe
+"""
+
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Apr 22 22:08:33 2020
+
+@author: gilbe
+"""
 import numpy as np
 import pandas as pd
-# from pytest import Instance
-from transformers import AutoTokenizer
 import pandas as pd
 import os
 import torch
 from torch.utils.data import Dataset
 import pandas_datareader as pdr
-from pytorch_lightning.core.lightning import LightningModule
 from torch.utils.data import DataLoader
 import numpy as np
 import pytorch_lightning as pl
@@ -15,7 +25,7 @@ import sklearn.model_selection as sm
 import matplotlib.pyplot as plt
 
 
-# transform a time series dataset into a supervised learning dataset
+
 def series_to_supervised(data, n_in=1, n_out=1, dropnan=True):
 	n_vars = 1 if type(data) is list else data.shape[1]
 	df = pd.DataFrame(data)
@@ -33,8 +43,6 @@ def series_to_supervised(data, n_in=1, n_out=1, dropnan=True):
 		agg.dropna(inplace=True)
 	return agg.values
  
-
-
 def flatten(data, num_cols=1):
     return np.array(data).reshape(-1, num_cols)
 
@@ -87,51 +95,51 @@ def tokenize_function(data, col="text"):
     return tokens
 
 
-def create_rolling_ts(
-    input_data, 
-    lookback=5, 
-    return_target=True,
-    apply_datefeatures=True,
-    return_np_array=False
-    ):
-    """
-    Make flat data by using pd.concat instead, pd.concat([df1, df2]).
-    Slow function.
-    Save data as preprocessed?
-    """
-    x = []
-    y = []
-    rows = len(input_data)
-    features = input_data.copy()
-    target = input_data.copy()
-    for i in range(rows - lookback):
-        """Create embeddings for the date-features"""
-        if apply_datefeatures:
-            rolling_features = date_features(features.iloc[i: i + lookback])
-        else:
-            rolling_features = features.iloc[i: i + lookback]
+# def create_rolling_ts(
+#     input_data, 
+#     lookback=5, 
+#     return_target=True,
+#     apply_datefeatures=True,
+#     return_np_array=False
+#     ):
+#     """
+#     Make flat data by using pd.concat instead, pd.concat([df1, df2]).
+#     Slow function.
+#     Save data as preprocessed?
+#     """
+#     x = []
+#     y = []
+#     rows = len(input_data)
+#     features = input_data.copy()
+#     target = input_data.copy()
+#     for i in range(rows - lookback):
+#         """Create embeddings for the date-features"""
+#         if apply_datefeatures:
+#             rolling_features = date_features(features.iloc[i: i + lookback])
+#         else:
+#             rolling_features = features.iloc[i: i + lookback]
 
-        rolling_target = target.iloc[i + lookback: i + lookback + 1]
-        x.append(rolling_features)
-        y.append(rolling_target)
-    if return_np_array:
-        x = np.array(x)
-        y = np.array(y)
+#         rolling_target = target.iloc[i + lookback: i + lookback + 1]
+#         x.append(rolling_features)
+#         y.append(rolling_target)
+#     if return_np_array:
+#         x = np.array(x)
+#         y = np.array(y)
 
-    if return_target:
-        return x, y
-    return x
+#     if return_target:
+#         return x, y
+#     return x
 
 
-def date_features(df):
-    if isinstance(df, pd.core.series.Series):
-        df = pd.DataFrame(df, index=df.index)
+# def date_features(df):
+#     if isinstance(df, pd.core.series.Series):
+#         df = pd.DataFrame(df, index=df.index)
 
-    df.loc[:, 'day_of_year'] = df.index.dayofyear
-    df.loc[:, 'month'] = df.index.month
-    df.loc[:, 'day_of_week'] = df.index.day
-    df.loc[:, 'hour'] = df.index.hour
-    return df
+#     df.loc[:, 'day_of_year'] = df.index.dayofyear
+#     df.loc[:, 'month'] = df.index.month
+#     df.loc[:, 'day_of_week'] = df.index.day
+#     df.loc[:, 'hour'] = df.index.hour
+#     return df
 
 
 def merge_features_lagged_target(
