@@ -1,0 +1,2 @@
+# aifi-bootcamp
+AIFI bootcamp
