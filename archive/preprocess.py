@@ -15,11 +15,11 @@ import pandas as pd
 import numpy as np
 import os
 import matplotlib.pyplot as plt
-# import tensorflow as tf
+import tensorflow as tf
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import MinMaxScaler, StandardScaler, QuantileTransformer
 from sklearn.model_selection import train_test_split
-# tf.random.set_seed(13)
+tf.random.set_seed(13)
 
 
 def train_val_tf(x_train,
