@@ -258,7 +258,8 @@ def create_rolling_ts(
     lookback=5, 
     return_target=True,
     apply_datefeatures=True,
-    return_array=False
+    return_array=False,
+    **kwargs
     ):
     """
     Make flat data by using pd.concat instead, pd.concat([df1, df2]).
