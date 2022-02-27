@@ -7,7 +7,8 @@ def create_rolling_ts(
     lookback=5, 
     return_target=True,
     apply_datefeatures=True,
-    return_np_array=False
+    return_np_array=False,
+    return_pct=False
     ):
     """
     Make flat data by using pd.concat instead, pd.concat([df1, df2]).
@@ -21,17 +22,26 @@ def create_rolling_ts(
     target = input_data.copy()
     for i in range(rows - lookback):
         """Create embeddings for the date-features"""
+        feat = features.iloc[i: i + lookback]
+        feat = feat.pct_change().fillna(np.nanmean(feat)) if return_pct else feat
         if apply_datefeatures:
-            rolling_features = date_features(features.iloc[i: i + lookback])
+            rolling_features = date_features(feat)
         else:
             rolling_features = features.iloc[i: i + lookback]
 
-        rolling_target = target.iloc[i + lookback: i + lookback + 1]
+        targ = target.iloc[i + lookback: i + lookback + 1]
+
+        rolling_target = targ
         x.append(rolling_features)
         y.append(rolling_target)
     if return_np_array:
         x = np.array(x)
+        x[np.isnan(x)] = 0
         y = np.array(y)
+
+        if return_pct:
+            y = pd.Series(np.array(y).reshape(-1))
+            y = y.pct_change().fillna(np.nanmean(y)).to_numpy()
 
     if return_target:
         return x, y
