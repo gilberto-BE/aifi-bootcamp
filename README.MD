@@ -1,6 +1,11 @@
 # AIFI-BOOTCAMP
 Repository with code and notebooks for the AIFI-BOOTCAMP.
 
+
+## Install python libraries:
+Go to folder where you have the repository, in the repository do ```cd aifi-bootcamp``` then run the command:
+``` py -m pip install -r requirements.txt```
+
 ## Our Papers and litterature
 A Meta-Learning approach to Model Uncertainty in Financial Time Series (March 29, 2021):
 
