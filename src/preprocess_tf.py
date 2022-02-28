@@ -1,12 +1,5 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Aug 11 20:50:59 2020
-
-@author: gilbe
-"""
-
-# -*- coding: utf-8 -*-
-"""
 Created on Wed Apr 22 22:08:33 2020
 
 @author: gilbe
